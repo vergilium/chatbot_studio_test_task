@@ -1,0 +1,8 @@
+import {
+  Table, Column, Model, DataType, ForeignKey, BelongsTo
+} from 'sequelize-typescript';
+
+@Table
+export default class CashRegister extends Model{
+
+}
