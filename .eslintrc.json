@@ -14,5 +14,13 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "rules": {}
+    "rules": {},
+    "import/resolver": {
+        "node": {
+            "extensions": [
+                ".ts",
+                ".tsx"
+            ]
+        }
+    }
 }
