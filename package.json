@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/validator": "^13.6.3",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.5",

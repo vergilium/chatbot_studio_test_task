@@ -1,6 +1,27 @@
 import {
   Table, Column, Model, DataType,
 } from 'sequelize-typescript';
+import Enum from '../../utils/enums.util';
+
+export enum Sex {
+  MALE = 1,
+  FEMALE = 2
+}
+
+export interface ICashier {
+  id: number,
+  firstName: String,
+  lastName: String,
+  seccondName?: String,
+  dateBorn?: Date,
+  sex?: Sex;
+  dateOfEmployment: Date,
+  dateOfDissmised?: Date,
+  worksInShifts?: boolean,
+  lastExpiriance?: string,
+  age?: number | undefined,
+  expiriance: number
+}
 
 @Table
 export default class Cashier extends Model {
@@ -17,10 +38,12 @@ export default class Cashier extends Model {
   public seccondName?: string;
 
   @Column(DataType.DATEONLY)
-  public dateBorn?: Date;
+  public birthDate?: Date;
 
-  @Column(DataType.INTEGER)
-  public sex?: number;
+  @Column(DataType.ENUM({
+    values: Enum.toArray(Sex)
+  }))
+  public sex?: Sex;
 
   @Column({
     type: DataType.DATE,
@@ -31,24 +54,40 @@ export default class Cashier extends Model {
   @Column(DataType.DATE)
   public dateOfDissmised?: Date;
 
-  @Column(DataType.BOOLEAN)
+  @Column({
+    type: DataType.BOOLEAN,
+    get() {
+      return Boolean(this.getDataValue('worksInShifts'));
+    }
+  })
   public worksInShifts?: boolean;
+
+  @Column
+  public lastExpiriance?: string;
 
   @Column({
     type: DataType.VIRTUAL,
     get() {
-      return new Date().getFullYear() - new Date(this.getDataValue('dateOfEmployment')).getFullYear();
+      let today = new Date();
+      let birthDate = new Date(this.getDataValue('birthDate'));
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
     },
   })
-  public age!: number;
+  public age?: number;
 
   @Column({
     type: DataType.VIRTUAL,
     get() {
       const now = new Date().getTime();
-      const employment = new Date(this.getDataValue('dateBorn')).getTime();
+      const employment = new Date(this.getDataValue('dateOfEmployment')).getTime();
       return new Date(now - employment).getUTCMonth();
     },
   })
   public expiriance?: number;
 }
+

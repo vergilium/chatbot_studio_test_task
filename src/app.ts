@@ -15,7 +15,7 @@ app.use((_req, res, next) => {
   });
 });
 
-sequelize.sync({ force: true })
+sequelize.sync({force: true})
   .then(() => {
     log.info('DB connected!');
     app.listen(appConf.server.port, () => {
