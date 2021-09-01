@@ -3,7 +3,7 @@ import {
 } from 'sequelize-typescript';
 import Enum from '../../utils/enums.util';
 
-export enum Sex {
+export enum Gender {
   MALE = 1,
   FEMALE = 2
 }
@@ -13,8 +13,8 @@ export interface ICashier {
   firstName: String,
   lastName: String,
   seccondName?: String,
-  dateBorn?: Date,
-  sex?: Sex;
+  birthDate?: Date,
+  gender?: Gender;
   dateOfEmployment: Date,
   dateOfDissmised?: Date,
   worksInShifts?: boolean,
@@ -41,9 +41,9 @@ export default class Cashier extends Model {
   public birthDate?: Date;
 
   @Column(DataType.ENUM({
-    values: Enum.toArray(Sex)
+    values: Enum.toArray(Gender)
   }))
-  public sex?: Sex;
+  public gender?: Gender;
 
   @Column({
     type: DataType.DATE,
