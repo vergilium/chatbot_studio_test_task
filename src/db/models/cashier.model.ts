@@ -1,17 +1,19 @@
 import {
-  Table, Column, Model, DataType,
+  Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany
 } from 'sequelize-typescript';
 import Enum from '../../utils/enums.util';
+import Shop from './shop.model';
+import CashRegister, { CashRegisterAttributes } from './cashregister.model';
 
 export enum Gender {
   MALE = 1,
   FEMALE = 2
 }
 
-export interface ICashier {
+export interface CashierAttributes {
   id: number,
   firstName: String,
-  lastName: String,
+  lastName?: String | undefined
   seccondName?: String,
   birthDate?: Date,
   gender?: Gender;
@@ -20,11 +22,14 @@ export interface ICashier {
   worksInShifts?: boolean,
   lastExpiriance?: string,
   age?: number | undefined,
-  expiriance: number
+  expiriance?: number,
+  shop: Shop
+  cashRegisters: CashRegisterAttributes[]
 }
 
 @Table
 export default class Cashier extends Model {
+
   @Column(DataType.STRING(60))
   public firstName!: string;
 
@@ -83,11 +88,31 @@ export default class Cashier extends Model {
   @Column({
     type: DataType.VIRTUAL,
     get() {
-      const now = new Date().getTime();
-      const employment = new Date(this.getDataValue('dateOfEmployment')).getTime();
-      return new Date(now - employment).getUTCMonth();
+      let dateOfDissmised = <Date>this.getDataValue('dateOfDissmised');
+      let dateOfEmployment = <Date>this.getDataValue('dateOfEmployment');
+      if (!dateOfEmployment) {
+        return 0;
+      }
+      if (!dateOfDissmised)
+        dateOfDissmised = new Date();
+
+      let months = (dateOfDissmised.getFullYear() - dateOfEmployment.getFullYear()) * 12;
+      months -= dateOfEmployment.getMonth();
+      months += dateOfDissmised.getMonth();
+
+      return months <= 0 ? 0 : months;
     },
   })
   public expiriance?: number;
+
+  @ForeignKey(() => Shop)
+  @Column
+  public shopId?: number
+
+  @BelongsTo(() => Shop)
+  public shop?: Shop;
+
+  @HasMany(() => CashRegister)
+  public cashRegisters?: CashRegisterAttributes[]
 }
 

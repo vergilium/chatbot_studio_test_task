@@ -22,13 +22,15 @@
   "homepage": "https://github.com/vergilium/chatbot_studio_test_task#readme",
   "dependencies": {
     "@types/express-validator": "^3.0.0",
+    "@types/sequelize-fixtures": "^0.6.3",
     "@types/validator": "^13.6.3",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
-    "moment": "^2.29.1",
     "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.5",
+    "sequelize-fixtures": "^1.2.0",
     "sequelize-typescript": "^2.1.0",
     "tslog": "^3.2.1"
   },

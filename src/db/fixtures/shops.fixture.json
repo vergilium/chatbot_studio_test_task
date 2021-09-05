@@ -1,0 +1,38 @@
+[
+    {
+        "model": "Shop",
+        "keys": [
+            "id"
+        ],
+        "data": {
+            "id": 1,
+            "name": "ATB0001",
+            "fullname": "NIK_MARKET_CHKALOVA",
+            "city": "Николаев",
+            "location": "Чкалова, 84",
+            "description": "Минимаркет начального уровня.",
+            "cashiers": [
+                1,
+                2
+            ]
+        }
+    },
+    {
+        "model": "Shop",
+        "keys": [
+            "id"
+        ],
+        "data": {
+            "id": 2,
+            "name": "ATB0002",
+            "fullname": "NIK_MARKET_DZERZINSKOGO",
+            "city": "Львов",
+            "location": "Шевченка, 100",
+            "description": "Маркет В центре города.",
+            "cashiers": [
+                3,
+                4
+            ]
+        }
+    }
+]

@@ -19,4 +19,5 @@ config.define = {
   timestamps: false,
   freezeTableName: true,
 };
+
 export default config;
