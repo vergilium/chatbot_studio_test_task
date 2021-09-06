@@ -12,9 +12,9 @@ const getCashiers = async (req: Request, res: Response) => {
         const result = await <CashierAttributes[]>(await sequelize.getRepository(Cashier).findAll());
         return res.status(200).json(result);
     } catch (ex) {
-        log.error((<Error>ex).message);
+        log.error((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
         log.debug(ex);
-        res.sendStatus(500);
+        res.status(500).json((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
     }
 };
 
@@ -25,20 +25,20 @@ const getCashier = async (req: Request, res: Response) => {
     } catch (ex) {
         log.error((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
         log.debug(ex);
-        res.status(500).json((<Result<ValidationError>>ex).mapped());
+        res.status(500).json((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
     }
 };
 
 const addCashier = async (req: Request, res: Response) => {
     try {
         validationResult(req).throw();
-        const newCashier = <CashierAttributes>req.body;
+        const newCashier = <Cashier>req.body;
         await sequelize.getRepository(Cashier).create(newCashier);
         res.status(200).json({ success: true });
     } catch (ex) {
         log.error((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
         log.debug(ex);
-        res.status(500).json((<Result<ValidationError>>ex).mapped());
+        res.status(500).json((<Error>ex).message || (<Result<ValidationError>>ex).mapped());
     }
 }
 

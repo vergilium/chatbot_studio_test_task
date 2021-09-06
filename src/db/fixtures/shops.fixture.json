@@ -8,7 +8,7 @@
             "id": 1,
             "name": "ATB0001",
             "fullname": "NIK_MARKET_CHKALOVA",
-            "city": "Николаев",
+            "city": "Миколаїв",
             "location": "Чкалова, 84",
             "description": "Минимаркет начального уровня.",
             "cashiers": [
@@ -26,7 +26,7 @@
             "id": 2,
             "name": "ATB0002",
             "fullname": "NIK_MARKET_DZERZINSKOGO",
-            "city": "Львов",
+            "city": "Львів",
             "location": "Шевченка, 100",
             "description": "Маркет В центре города.",
             "cashiers": [

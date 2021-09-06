@@ -1,3 +1,8 @@
+/********************************************
+ * Configuration file for db connection.
+ * @author Maloivan Oleksii
+ * @version 1.0.0
+ ********************************************/
 import { SequelizeOptions } from 'sequelize-typescript';
 import path from 'path';
 import log from '../../utils/logger';

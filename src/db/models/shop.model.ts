@@ -1,7 +1,16 @@
+/********************************************
+ * Shop db entity.
+ * @author Maloivan Oleksii
+ * @version 1.0.0
+ * @description description of shops table
+ *  model for db and related interfaces
+ ********************************************/
+//#region inports
 import {
   Table, Column, Model, DataType, HasMany, BelongsToMany,
 } from 'sequelize-typescript';
 import Cashier, { CashierAttributes } from './cashier.model';
+//#endregion
 
 export interface ShopAttributes {
   id: number;
@@ -20,12 +29,15 @@ export interface ShopAttributes {
 //та посилатись по id 
 //але для прикладу зробив enum
 export enum Cities {
-  Lviv = 'Львов',
-  Kiev = 'Киев',
-  Nikolaev = 'Николаев'
+  Lviv = 'Львів',
+  Kiev = 'Київ',
+  Nikolaev = 'Миколаїв'
   // and other
 }
 
+/**
+ * @class Shop db entity
+ */
 @Table
 export default class Shop extends Model {
 

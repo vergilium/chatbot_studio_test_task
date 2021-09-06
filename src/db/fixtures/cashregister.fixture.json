@@ -26,8 +26,8 @@
     {
         "model": "CashRegister",
         "data": {
-            "loginTime": "2021-08-23 7:00:00",
-            "logoutTime": "2021-08-23 16:00:00",
+            "loginTime": "2021-08-23 22:50:00",
+            "logoutTime": "2021-08-24 6:59:00",
             "cashier_id": 4
         }
     },

@@ -16,6 +16,7 @@ const log: Logger = new Logger({
   displayFunctionName: true,
   displayTypes: false,
   displayFilePath: 'hidden',
+  colorizePrettyLogs: false
 });
 
 export default log;

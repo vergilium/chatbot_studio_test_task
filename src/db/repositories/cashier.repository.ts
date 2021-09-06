@@ -1,10 +1,23 @@
+/********************************************
+ * Repository of cashiers.
+ * @author Maloivan Oleksii
+ * @version 1.0.0
+ * @description contains not standart queries
+ * to db for cashiers entity.
+ ********************************************/
+//#region imports
 import log from "../../utils/logger";
 import { Op } from "sequelize";
 import sequelize from "../context/context";
 import Cashier, { CashierAttributes } from "../models/cashier.model";
 import { Sequelize } from "sequelize-typescript";
 import { Cities } from "../models/shop.model";
+//#endregion
 
+/**
+ * Query for task one "getTargetCashiers1"
+ * @returns {Promise<CashierAttributes[] | null>} result of query
+ */
 const getTargetCashiers1 = async () => {
 
     const query = await sequelize.getRepository(Cashier).findAll({
@@ -39,6 +52,10 @@ const getTargetCashiers1 = async () => {
     return null;
 }
 
+/**
+ * Query for task two getTargetCashiers2
+ * @returns {Promise<CashierAttributes[] | null>} query result
+ */
 const getTargetCashiers2 = async () => {
     const query = await sequelize.getRepository(Cashier).findAll({
         include: [{
@@ -53,17 +70,12 @@ const getTargetCashiers2 = async () => {
             required: true,
             where: {
                 [Op.and]: [
-                    Sequelize.literal(`"loginTime"::time between '22:50'::time and '23:59'::time`),
-                    Sequelize.literal(`extract(dow from "loginTime") = 1`)
+                    Sequelize.literal(/*sql*/`"loginTime"::time between '22:50'::time and '23:59'::time`),
+                    Sequelize.literal(/*sql*/`extract(dow from "loginTime") = 1`),
+                    Sequelize.literal(/*sql*/`mod(date_part('day', "loginTime")::numeric, 2) != 0`)
                 ]
             }
         }],
-        where: {
-            [Op.and]: [
-
-            ]
-        }
-
     }).catch(err => {
         log.error((<Error>err).message);
         log.debug((<Error>err).message);

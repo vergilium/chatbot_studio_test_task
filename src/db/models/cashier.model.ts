@@ -1,9 +1,18 @@
+/********************************************
+ * Cashier db entity.
+ * @author Maloivan Oleksii
+ * @version 1.0.0
+ * @description description of the cashier table
+ *  model for the db and related interfaces.
+ ********************************************/
+//#region imports
 import {
   Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany
 } from 'sequelize-typescript';
 import Enum from '../../utils/enums.util';
 import Shop from './shop.model';
 import CashRegister, { CashRegisterAttributes } from './cashregister.model';
+//#endregion
 
 export enum Gender {
   MALE = 1,
@@ -11,7 +20,7 @@ export enum Gender {
 }
 
 export interface CashierAttributes {
-  id: number,
+  id?: number,
   firstName: String,
   lastName?: String | undefined
   seccondName?: String,
@@ -27,9 +36,11 @@ export interface CashierAttributes {
   cashRegisters: CashRegisterAttributes[]
 }
 
+/**
+ * @class Cashier db entity
+ */
 @Table
 export default class Cashier extends Model {
-
   @Column(DataType.STRING(60))
   public firstName!: string;
 
